@@ -20,10 +20,8 @@ async function read () {
 
 async function update_status (new_status, log) {
   let logs_utf8 = await fs.readFile(logs_path, { encoding: 'utf-8' })
-  console.log(logs_utf8, log.position)
   const delta = (process.env.LOGS_SPLITTER.length + 1) * log.index
   logs_utf8 = `${logs_utf8.slice(0, log.position + delta + 1)}${new_status}${logs_utf8.slice(log.position + delta + 2)}`
-  console.log(logs_utf8, delta)
   await fs.writeFile(logs_path, logs_utf8)
 }
 
